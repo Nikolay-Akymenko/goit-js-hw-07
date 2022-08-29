@@ -12,13 +12,11 @@ galleryContainer.insertAdjacentHTML("beforeend", imgMarkup);
 
 galleryContainer.addEventListener('click', onGalleryContainerClick);
 
-const modalInstance = getModal();
-
 function createImgMarkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `
     <div class="gallery__item">
-        <a class="gallery__link" href="large-image.jpg">
+        <a class="gallery__link" href="${original}">
             <img
                 class="gallery__image"
                 src="${preview}"
@@ -34,30 +32,34 @@ function createImgMarkup(galleryItems) {
 
 function onGalleryContainerClick(event) {
     event.preventDefault();
+    
+    const isGalleryEl = event.target.classList.contains('gallery__image');
 
-    if (!event.classList.contains('.gallery__item'))
+    if (!isGalleryEl) {
         return;
-
-    const currentImageUrl = event.target.dataset.source;
-    instance = basicLighbox.create(
-        `<img class="modal__image" src"${currentImageUrl}" />`
-    );
-    instance.show();
-}
-function onModalOpen(event) {
-    window.addEventListener('keydown', onModalClose);
-}
-function onModalClose(event) {
-    window.addEventListener('keydown', onKeyPress);
-}
-function onKeyPress(event) {
-    const ESK_KEY_CODE = 'Escape';
-    const isKeyCode = event.code === ESK_KEY_CODE;
-
-    if (isKeyCode) {
-        instance.close();
-        window.removeEventListener('keydown', onModalClose);
     }
+    
+    const swatchUrlEl = event.target.dataset.source;
+    const instance = basicLightbox.create(`
+       <img src="${swatchUrlEl}" width="600" haight="700">
+        `)
+    instance.show();
+   
+    window.addEventListener('keydown', onEscKeyPress);
+
+    function onEscKeyPress(event) {
+        const ESC_KEY_CODE = 'Escape';
+        if (event.code === ESC_KEY_CODE) {
+            instance.close();
+            window.removeEventListener('keydown', onEscKeyPress);
+        }
+    }
+    
 }
+console.log(galleryItems);
+
+
+
+
 
 
