@@ -24,10 +24,10 @@ function createImgMarkup(galleryItems) {
     .join('');
 }
 
-function onGalleryContainerClick(event) {
-    event.preventDefault();
+// function onGalleryContainerClick(event) {
+//     event.preventDefault();
     
-    new SimpleLightbox('.gallery a', {
+    const lightbox = new SimpleLightbox('.gallery a', {
         nav: true,
         close: true,
         caption: true,
@@ -38,5 +38,5 @@ function onGalleryContainerClick(event) {
         
        
     });
-}
-console.log(galleryItems);
+// }
+// console.log(galleryItems);

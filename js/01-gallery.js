@@ -3,8 +3,6 @@ import { galleryItems } from './gallery-items.js';
 
 // Change code below this line
 
-//*<div class="gallery"></div>
-
 const galleryContainer = document.querySelector('.gallery');
 const imgMarkup = createImgMarkup(galleryItems);
 
@@ -42,24 +40,16 @@ function onGalleryContainerClick(event) {
     const swatchUrlEl = event.target.dataset.source;
     const instance = basicLightbox.create(`
        <img src="${swatchUrlEl}" width="600" haight="700">
-        `)
+        `, {
+        onShow: (instance) => window.addEventListener('keydown', onEscKeyPress),
+        onClose: (instance) => window.removeEventListener('keydown', onEscKeyPress),
+    });
     instance.show();
-   
-    window.addEventListener('keydown', onEscKeyPress);
-
+    
     function onEscKeyPress(event) {
         const ESC_KEY_CODE = 'Escape';
         if (event.code === ESC_KEY_CODE) {
             instance.close();
-            window.removeEventListener('keydown', onEscKeyPress);
         }
     }
-    
 }
-console.log(galleryItems);
-
-
-
-
-
-
