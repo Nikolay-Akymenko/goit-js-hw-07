@@ -6,8 +6,6 @@ const imgMarkup = createImgMarkup(galleryItems);
 
 galleryContainer.insertAdjacentHTML("beforeend", imgMarkup);
 
-galleryContainer.addEventListener('click', onGalleryContainerClick);
-
 function createImgMarkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
         return `
@@ -23,11 +21,8 @@ function createImgMarkup(galleryItems) {
     })
     .join('');
 }
-
-// function onGalleryContainerClick(event) {
-//     event.preventDefault();
     
-    const lightbox = new SimpleLightbox('.gallery a', {
+   new SimpleLightbox('.gallery a', {
         nav: true,
         close: true,
         caption: true,
@@ -37,6 +32,4 @@ function createImgMarkup(galleryItems) {
         captionSpeed: 250,
         
        
-    });
-// }
-// console.log(galleryItems);
+   });
